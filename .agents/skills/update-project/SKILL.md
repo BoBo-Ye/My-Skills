@@ -1,13 +1,13 @@
 ---
 name: update-project
-description: 'Update project README based on recent changes, create a conventional git commit, and summarize the update to the user. Use when user wants to wrap up a round of development, sync the README with current project state, or make a documentation commit after feature work.'
+description: 'Update a project README based on project-source changes, create a conventional git commit, and summarize the update to the user. Treat `.agents/skills/` changes as project updates only when the project itself is a skill collection; otherwise ignore skill inventory and skill metadata.'
 ---
 
 # Update Project
 
 ## Overview
 
-Review recent project changes, update the README to reflect the current state, commit with a conventional commit message, and report the update summary to the user.
+Review recent project-source changes, update the README to reflect the current state, commit with a conventional commit message, and report the update summary to the user. If the project itself is a skill collection, skill additions, removals, and description changes are project-source changes; otherwise ignore them.
 
 ## Workflow
 
@@ -24,27 +24,33 @@ git status --porcelain
 git diff --stat
 ```
 
+First determine the project scope from the README, repository purpose, and top-level structure. If the project itself is a skill collection, treat `.agents/skills/` as project source.
+
 Identify:
-- New skills, features, or capabilities added
+- New project features or capabilities added
+- Skill additions, removals, or metadata updates when the project itself is a skill collection
 - Structural changes (new directories, config files, etc.)
 - Any renames, removals, or reorganizations
 - Dependencies or tooling updates
+
+For non-skill-collection projects, ignore `.agents/skills/` changes and skill metadata when deciding whether the project README needs an update.
 
 ### Step 2: Update README
 
 Follow the [create-readme skill](.agents/skills/create-readme/SKILL.md) principles to update the project README:
 
-- Review the entire project workspace for current structure
+- Review the project workspace for current structure, including `.agents/skills/` only when the project itself is a skill collection
 - Keep content concise, scannable, and professional
 - Use GFM and GitHub admonition syntax
 - Reflect only what exists *now* — remove stale sections, add new ones
 - Do not overuse emojis
 
 Key areas to verify for accuracy:
-- Skill listing and descriptions (each skill in `.agents/skills/`)
+- Project feature descriptions and user-facing workflows
+- Skill listing and descriptions when the project itself is a skill collection
 - Project structure tree
 - Installation / setup instructions
-- Any new capabilities or changed workflows
+- Any new project capabilities or changed workflows
 
 ### Step 3: Stage and Commit
 
