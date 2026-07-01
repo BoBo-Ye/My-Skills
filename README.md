@@ -85,7 +85,7 @@ Execute git commits with conventional commit message analysis, intelligent stagi
 Sync the README with project-source changes, then commit the documentation update and report what changed. The skill first determines whether the repository is a skill collection before treating `.agents/skills/` inventory or metadata changes as README-worthy project updates.
 
 - Reviews recent commits, uncommitted changes, and repository scope before deciding what changed
-- Treats skill additions, removals, and metadata updates as project changes only for skill-collection repositories like this one
+- Includes skill additions, removals, and metadata updates only when they are part of the repository's project source
 - Updates README following `create-readme` best practices (concise, scannable, GFM admonitions)
 - Stages and commits with a conventional commit message via `git-commit` conventions
 - Reports a clear summary of what changed and what was updated
