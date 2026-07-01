@@ -2,6 +2,11 @@
 
 A personal collection of custom/useful skills to extend agent capabilities.
 
+## Usage
+
+Skills are automatically discovered from the `.agents/skills/` directory and will be soft-linked to the `.claude` folder through the command `mklink /D .claude .agents` executed with **administrator** privileges.
+
+
 ## Skills
 
 ### git-commit
@@ -15,6 +20,3 @@ Execute git commits with conventional commit message analysis, intelligent stagi
   - Intelligent file staging for logical grouping
   - Supports interactive type/scope/description overrides
 
-## Usage
-
-Skills are automatically discovered from the `.agents/skills/` directory and be soft-linked to the `.claude` folder.
