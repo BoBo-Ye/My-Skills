@@ -1,6 +1,6 @@
 # My-Skills
 
-A personal collection of custom Claude Code skills to extend agent capabilities.
+A personal collection of custom/useful skills to extend agent capabilities.
 
 ## Skills
 
@@ -8,7 +8,6 @@ A personal collection of custom Claude Code skills to extend agent capabilities.
 
 Execute git commits with conventional commit message analysis, intelligent staging, and message generation.
 
-- **Type:** Built from [claude-code-skill-template](https://github.com/anthropics/claude-code)
 - **Location:** `.agents/skills/git-commit/SKILL.md`
 - **Features:**
   - Auto-detects commit type and scope from staged/unstaged diffs
@@ -18,8 +17,4 @@ Execute git commits with conventional commit message analysis, intelligent stagi
 
 ## Usage
 
-Skills are automatically discovered from the `.agents/skills/` directory and can be invoked in Claude Code with `/skill-name`.
-
-## License
-
-MIT
+Skills are automatically discovered from the `.agents/skills/` directory and be soft-linked to the `.claude` folder.
