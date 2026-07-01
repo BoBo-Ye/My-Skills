@@ -1,13 +1,13 @@
 ---
 name: update-project
-description: 'Update a project README based on project-source changes, create a conventional git commit, and summarize the update to the user. Treat `.agents/skills/` changes as project updates only when the project itself is a skill collection; otherwise ignore skill inventory and skill metadata.'
+description: 'Update a project README based on project-source changes, create a conventional git commit, and summarize the update to the user. Treat `.agents/skills/` changes as project updates only when that path is project source and not ignored by `.gitignore`; otherwise ignore skill inventory and skill metadata.'
 ---
 
 # Update Project
 
 ## Overview
 
-Review recent project-source changes, update the README to reflect the current state, commit with a conventional commit message, and report the update summary to the user. If the project itself is a skill collection, skill additions, removals, and description changes are project-source changes; otherwise ignore them.
+Review recent project-source changes, update the README to reflect the current state, commit with a conventional commit message, and report the update summary to the user. If `.agents/skills/` is project source and not ignored by `.gitignore`, skill additions, removals, and description changes are project-source changes; otherwise ignore them.
 
 ## Workflow
 
@@ -24,22 +24,22 @@ git status --porcelain
 git diff --stat
 ```
 
-First determine the project scope from the README, repository purpose, and top-level structure. If the project itself is a skill collection, treat `.agents/skills/` as project source.
+First determine the project scope from the README, repository purpose, top-level structure, and `.gitignore`. If `.agents/skills/` is project source and is not ignored by `.gitignore`, treat it as project source.
 
 Identify:
 - New project features or capabilities added
-- Skill additions, removals, or metadata updates when the project itself is a skill collection
+- Skill additions, removals, or metadata updates when `.agents/skills/` is project source and not ignored by `.gitignore`
 - Structural changes (new directories, config files, etc.)
 - Any renames, removals, or reorganizations
 - Dependencies or tooling updates
 
-For non-skill-collection projects, ignore `.agents/skills/` changes and skill metadata when deciding whether the project README needs an update.
+For projects where `.agents/skills/` is not project source or is ignored by `.gitignore`, ignore skill inventory and skill metadata when deciding whether the project README needs an update.
 
 ### Step 2: Update README
 
 Follow the [create-readme skill](.agents/skills/create-readme/SKILL.md) principles to update the project README:
 
-- Review the project workspace for current structure, including `.agents/skills/` only when the project itself is a skill collection
+- Review the project workspace for current structure, including `.agents/skills/` only when it is project source and not ignored by `.gitignore`
 - Keep content concise, scannable, and professional
 - Use GFM and GitHub admonition syntax
 - Reflect only what exists *now* — remove stale sections, add new ones
@@ -47,7 +47,7 @@ Follow the [create-readme skill](.agents/skills/create-readme/SKILL.md) principl
 
 Key areas to verify for accuracy:
 - Project feature descriptions and user-facing workflows
-- Skill listing and descriptions when the project itself is a skill collection
+- Skill listing and descriptions when `.agents/skills/` is project source and not ignored by `.gitignore`
 - Project structure tree
 - Installation / setup instructions
 - Any new project capabilities or changed workflows
