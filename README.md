@@ -80,6 +80,15 @@ Execute git commits with conventional commit message analysis, intelligent stagi
 - Intelligent file staging for logically grouped commits
 - Git safety protocol: no destructive commands, no hook skipping, no force push to main
 
+### [update-project](.agents/skills/update-project/SKILL.md)
+
+Sync the README with the current project state after a round of development. Analyzes recent changes, updates documentation, commits, and reports a summary.
+
+- Reviews recent commits and uncommitted changes to detect new skills, features, or structural changes
+- Updates README following `create-readme` best practices (concise, scannable, GFM admonitions)
+- Stages and commits with a conventional commit message via `git-commit` conventions
+- Reports a clear summary of what changed and what was updated
+
 > [!TIP]
 > Run `/find-skills` whenever you need a new capability — the ecosystem grows daily. New skills are added to `.agents/skills/` and available immediately.
 
@@ -89,11 +98,11 @@ Execute git commits with conventional commit message analysis, intelligent stagi
 My-Skills/
 ├── .agents/
 │   └── skills/
-│       ├── find-skills/
-│       │   └── SKILL.md
-│       ├── create-skill/
 │       ├── create-readme/
-│       ...
+│       ├── create-skill/
+│       ├── find-skills/
+│       ├── git-commit/
+│       └── update-project/
 ├── .claude/          → symlink to .agents/ (for Claude Code)
 ├── .gitignore
 └── README.md
@@ -115,6 +124,3 @@ Your skill logic and guidelines for the agent here.
 ```
 
 Drop it into `.agents/skills/<skill-name>/SKILL.md` and it's available in both Codex and Claude Code immediately.
-
-For advanced options (allowed tools, model selection, hooks), see the [Claude Code skills documentation](https://docs.claude.codes/skills/overview).
-
