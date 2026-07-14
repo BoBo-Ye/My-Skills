@@ -54,7 +54,7 @@ npx skills add BoBo-Ye/My-Skills --skill git-commit --agent codex --global
 │       ├── find-skills/
 │       ├── git-commit/
 │       └── skill-creator/
-├── skills-lock.json
+├── skills-sources.json
 └── package.json
 ```
 
@@ -89,7 +89,7 @@ npx skills add BoBo-Ye/My-Skills --list
 npm install
 ```
 
-技能内容的主要来源和版本信息记录在 [`skills-lock.json`](skills-lock.json) 中。
+技能内容的主要来源和版本信息记录在 [`skills-sources.json`](skills-sources.json) 中。仓库不使用 Skills CLI 保留的 `skills-lock.json` 文件，避免 CLI 将这些技能误判为已安装项目技能。
 
 ## 相关链接
 
