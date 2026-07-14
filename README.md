@@ -1,127 +1,98 @@
-## Overview
+# My-Skills
 
-**My-Skills** is a personal, self-use collection of agent skills — some hand-written, some sourced from the community ecosystem. Each skill is a plain Markdown file with YAML frontmatter — no dependencies, no build step, no configuration required.
+个人维护的 Agent Skills 集合，包含自用技能和来自社区的实用技能。每个技能都是一个带有 YAML frontmatter 的 `SKILL.md`，可以通过 [`skills`](https://github.com/vercel-labs/skills) CLI 安装到 Codex、Claude Code、Cursor 等支持 Agent Skills 的工具中。
 
-This repository is designed to work with both **[Codex](https://github.com/openai/codex)** and **[Claude Code](https://claude.ai/code)**. Codex discovers skills from `.agents/skills/`, while Claude Code looks for `.claude/skills/`. To avoid maintaining two copies of every skill, the `.claude` directory is set up as a symlink pointing to `.agents` — a single source of truth shared across both tools.
+## 快速开始
 
-## Installation
+查看这个仓库提供的所有技能：
 
-### Prerequisites
+```bash
+npx skills add BoBo-Ye/My-Skills --list
+```
 
-- [Codex](https://github.com/openai/codex) and/or [Claude Code](https://claude.ai/code) installed and authenticated
-- [Node.js](https://nodejs.org/) >=18 (required for the `find-skills` skill only)
+安装全部技能到当前项目可检测到的 Agent：
 
-### Setup
+```bash
+npx skills add BoBo-Ye/My-Skills --all
+```
 
-1. **Clone the repository**
+只安装指定技能到 Codex：
 
-   ```sh
-   git clone https://github.com/BoBo-Ye/My-Skills.git
-   cd My-Skills
-   ```
+```bash
+npx skills add BoBo-Ye/My-Skills --skill skill-creator --agent codex
+```
 
-2. **Create the symlink**
+如果希望安装到用户级目录，添加 `--global`（或 `-g`）：
 
-   Skills live in `.agents/skills/`. Codex reads them directly; Claude Code needs them under `.claude/skills/`. A symlink keeps both in sync:
-
-   **Windows** (PowerShell as Administrator):
-   ```powershell
-   mklink /D .claude .agents
-   ```
-
-   **macOS / Linux**:
-   ```sh
-   ln -s .agents .claude
-   ```
-
-3. **Verify**
-
-   Restart your agent tool. The skills will appear as available slash commands in both Codex and Claude Code.
-
-> [!NOTE]
-> The `.claude` symlink is listed in `.gitignore` — each user creates it locally according to their platform. Codex users who don't use Claude Code can skip the symlink entirely.
-
-## Skills
-
-Skills in this collection may be hand-written or sourced from the community — each curated for quality and usefulness.
-
-### [find-skills](.agents/skills/find-skills/SKILL.md)
-
-Discover and install agent skills from the open ecosystem. Searches the skill marketplace and guides you through quality-gated installation.
-
-- Browse skills by category: Web Dev, Testing, DevOps, Documentation, Code Quality, Design, Productivity
-- Verify quality through install counts, source reputation, and GitHub stars
-- Install skills with a single command via the Skills CLI (`npx skills`)
-
-### [create-skill](.agents/skills/create-skill/SKILL.md)
-
-Guide for creating effective skills following best practices. Covers structure, progressive disclosure, and the principles behind well-designed skills.
-
-- Three-level loading system: metadata → SKILL.md → bundled resources
-- 200-line rule and progressive disclosure pattern
-- Degrees of freedom: high (text instructions) to low (specific scripts) for different use cases
-- Skill directory layout conventions (`scripts/`, `references/`, `assets/`)
-
-### [create-readme](.agents/skills/create-readme/SKILL.md)
-
-Generate comprehensive, well-structured `README.md` files for any project. Analyzes the entire project first, then writes documentation inspired by top open-source repositories.
-
-- Reviews the full project structure before writing
-- Uses GitHub Flavored Markdown and [admonition syntax](https://github.com/orgs/community/discussions/16925)
-- Keeps content concise, scannable, and professional
-
-### [git-commit](.agents/skills/git-commit/SKILL.md)
-
-Execute git commits with conventional commit message analysis, intelligent staging, and message generation.
-
-- Auto-detects commit type (`feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`) and scope from staged/unstaged diffs
-- Generates [Conventional Commits](https://www.conventionalcommits.org/) compliant messages
-- Supports breaking changes via `!` marker and `BREAKING CHANGE` footer
-- Intelligent file staging for logically grouped commits
-- Git safety protocol: no destructive commands, no hook skipping, no force push to main
-
-### [update-project](.agents/skills/update-project/SKILL.md)
-
-Sync the README with project-source changes, then commit the documentation update and report what changed. The skill first determines whether `.agents/skills/` is part of the target repository's project source and not ignored by `.gitignore` before treating its inventory or metadata changes as README-worthy project updates.
-
-- Reviews recent commits, uncommitted changes, and repository scope before deciding what changed
-- Includes skill additions, removals, and metadata updates only when they are part of the repository's project source and not ignored by `.gitignore`
-- Updates README following `create-readme` best practices (concise, scannable, GFM admonitions)
-- Stages and commits with a conventional commit message via `git-commit` conventions
-- Reports a clear summary of what changed and what was updated
+```bash
+npx skills add BoBo-Ye/My-Skills --skill git-commit --agent codex --global
+```
 
 > [!TIP]
-> Run `/find-skills` whenever you need a new capability — the ecosystem grows daily. New skills are added to `.agents/skills/` and available immediately.
+> 安装后可以使用 `npx skills list` 查看当前项目已安装的技能，使用 `npx skills update` 更新技能。
 
-## Project Structure
+## 技能清单
 
-```
-My-Skills/
+| 技能 | 用途 |
+| --- | --- |
+| [`create-agentsmd`](.agents/skills/create-agentsmd/SKILL.md) | 为仓库生成完整的 `AGENTS.md`，补充项目结构、开发命令和协作约定。 |
+| [`create-readme`](.agents/skills/create-readme/SKILL.md) | 创建结构清晰、易读且适合开源项目的 `README.md`。 |
+| [`documentation-writer`](.agents/skills/documentation-writer/SKILL.md) | 按 Diátaxis 框架编写教程、操作指南、解释型文档和参考文档。 |
+| [`find-skills`](.agents/skills/find-skills/SKILL.md) | 根据任务发现、搜索和安装 Agent Skills。 |
+| [`git-commit`](.agents/skills/git-commit/SKILL.md) | 分析变更、智能暂存文件，并生成符合 Conventional Commits 的提交。 |
+| [`skill-creator`](.agents/skills/skill-creator/SKILL.md) | 创建、修改、评估和优化 Agent Skills。 |
+
+## 仓库结构
+
+```text
+.
 ├── .agents/
 │   └── skills/
+│       ├── create-agentsmd/
 │       ├── create-readme/
-│       ├── create-skill/
+│       ├── documentation-writer/
 │       ├── find-skills/
 │       ├── git-commit/
-│       └── update-project/
-├── .claude/          → symlink to .agents/ (for Claude Code)
-├── .gitignore
-└── README.md
+│       └── skill-creator/
+├── skills-lock.json
+└── package.json
 ```
 
-## Adding Your Own Skills
+技能仓库遵循通用的 Agent Skills 目录约定：每个技能目录至少包含一个 `SKILL.md`，并在 frontmatter 中声明 `name` 和 `description`。
 
-A skill is a Markdown file with YAML frontmatter. The minimum structure:
+## 添加新技能
+
+在 `.agents/skills/<skill-name>/SKILL.md` 创建技能文件：
 
 ```markdown
 ---
 name: my-skill
-description: What this skill does
+description: 简要说明技能的作用以及适用场景
 ---
 
-## Instructions
+# My Skill
 
-Your skill logic and guidelines for the agent here.
+在这里编写 Agent 使用该技能时应遵循的指令。
 ```
 
-Drop it into `.agents/skills/<skill-name>/SKILL.md` and it's available in both Codex and Claude Code immediately.
+建议技能名称使用小写字母和连字符，并让 `description` 同时说明“做什么”和“什么时候使用”。完成后，可以运行下面的命令验证仓库是否能发现新技能：
+
+```bash
+npx skills add BoBo-Ye/My-Skills --list
+```
+
+## 本地开发
+
+这个仓库不需要构建步骤。若要使用本地 `skills` CLI 或更新锁文件，可以安装依赖：
+
+```bash
+npm install
+```
+
+技能内容的主要来源和版本信息记录在 [`skills-lock.json`](skills-lock.json) 中。
+
+## 相关链接
+
+- [Agent Skills](https://agentskills.io/)
+- [skills CLI](https://github.com/vercel-labs/skills)
+- [skills.sh](https://skills.sh/)
